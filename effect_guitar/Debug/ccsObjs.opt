@@ -1,1 +1,1 @@
-"./main.obj" "./aic3204_tone_headphone.obj" "./aic3204_test.obj" "./aic3204_loop_linein.obj" -l"csl5502x.lib" -l"ezdsp5502bsl.lib" -l"rts55x.lib" "../lnkx.cmd" 
+"./main.obj" "./aic3204_tone_headphone_flanger.obj" "./aic3204_tone_headphone.obj" "./aic3204_test.obj" "./aic3204_loop_linein.obj" -l"csl5502x.lib" -l"ezdsp5502bsl.lib" -l"rts55x.lib" "../lnkx.cmd" 

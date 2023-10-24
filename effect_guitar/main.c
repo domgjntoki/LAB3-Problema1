@@ -50,15 +50,15 @@
 #define RATE 2.5
 #define DEPTH 0.95
 
-//extern Int16 aic3204_test( );
-//
-//int  TestFail    = (int)-1;   
-//
-//void StopTest()
-//{
-//    //SW_BREAKPOINT;
-//    return;
-//}
+extern Int16 aic3204_test( );
+
+int  TestFail    = (int)-1;   
+
+void StopTest()
+{
+    //SW_BREAKPOINT;
+    return;
+}
 
 /*
  *
@@ -67,73 +67,29 @@
  */
 int main()
 {
-	// Teste variable	
-	FILE *inputfile;
-	FILE *outputfile;
-    char *inputFilename = "F:\\Documentos\\Guitar_Sound\\Guitar_Normal.pcm";
-    char *outputFilename = "F:\\Documentos\\Guitar_Sound\\Guitar_Tremolo1.pcm";
-
-    Uint16 inputBuffer[SIZE_BUFFER];
-    Uint16 outputBuffer[SIZE_BUFFER];
-    size_t bytesRead;
-    size_t i;
-//    int32_t k;
-    
-//    /* Initialize BSL */
-//    EZDSP5502_init( );
-    
-    inputfile = fopen(inputFilename, "rb");
-    if (inputfile == NULL)
-    {
-        printf("Erro ao abrir o arquivo 1\n");
-        fclose(inputfile);
-    }
-
-    outputfile = fopen(outputFilename, "wb");
-    if (outputfile == NULL)
-    {
-        printf("Erro ao abrir o arquivo 2\n");
-    	fclose(outputfile);
-    } 
-    
-    bytesRead = fread(inputBuffer, sizeof(Uint16), SIZE_BUFFER,inputfile);
-    
-    while (bytesRead > 0){
-	    for (i = 0; i < bytesRead; i++){
-		    outputBuffer[i] = inputBuffer[i];
-	    }
 	
-	    fwrite(outputBuffer, sizeof(Uint16), bytesRead, outputfile);
-	    bytesRead = fread(inputBuffer, sizeof(Uint16), SIZE_BUFFER, inputfile);
+    /* Initialize BSL */
+    EZDSP5502_init( );
+
+    /* Display test ID */
+    printf( "\nTesting AIC3204...\n");
+
+    /* Call test function */
+    TestFail = aic3204_test( );
+
+    /* Check for test fail */
+    if ( TestFail != 0 )
+    {
+        /* Print error message */
+        printf( "     FAIL... error code %d... quitting\n", TestFail );
+    }
+    else
+    {
+        /* Print pass message */
+        printf( "    PASS\n" );
+        printf( "\n***ALL Tests Passed***\n" );
     }
     
-    fclose(inputfile);
-    fclose(outputfile);
-    
-    printf("O audio foi exportado");
-	
-//    /* Initialize BSL */
-//    EZDSP5502_init( );
-//
-//    /* Display test ID */
-//    printf( "\nTesting AIC3204...\n");
-//
-//    /* Call test function */
-//    TestFail = aic3204_test( );
-//
-//    /* Check for test fail */
-//    if ( TestFail != 0 )
-//    {
-//        /* Print error message */
-//        printf( "     FAIL... error code %d... quitting\n", TestFail );
-//    }
-//    else
-//    {
-//        /* Print pass message */
-//        printf( "    PASS\n" );
-//        printf( "\n***ALL Tests Passed***\n" );
-//    }
-//    
-//    StopTest();
+    StopTest();
 	return 0;
 }

@@ -45,6 +45,7 @@
 
 extern Int16 aic3204_tone_headphone( );
 extern Int16 aic3204_loop_linein( );
+extern Int16 aic3204_loop_linein_flanger( );
 
 /*
  *

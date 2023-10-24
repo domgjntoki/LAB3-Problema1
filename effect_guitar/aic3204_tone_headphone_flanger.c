@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// * File name: aic3204_tone_headphone.c
+// * File name: aic3204_loop_linein.c
 // *                                                                          
 // * Description:  AIC3204 Loop test.
 // *                                                                          
@@ -42,27 +42,49 @@
 #include "ezdsp5502_mcbsp.h"
 #include "csl_mcbsp.h"
 
+
+#define DELAY 10 //mS
+#define WIDTH 1 //mS
+
+#define MAX_DELAY (DELAY+WIDTH)*48 // em AMOSTRAS
+#define MIN_DELAY DELAY*48 //em AMOSTRAS
+#define RATE 1
+#define MIX 0.75
+
+#define BUFFER_SIZE MAX_DELAY*2 // Representa o delay em amostras
+
+#define TREMOLO_DEPTH 0.95
+#define TREMOLO_RATE 2.5 
+#define PI 3.14159265359
+
+
 extern Int16 AIC3204_rset( Uint16 regnum, Uint16 regval);
 
 /*
  *
- *  AIC3204 Tone
- *      Outputs a 1KHz tone on STEREO OUT
+ *  AIC3204 Loop
+ *      Loops audio from LINE IN to LINE OUT
  *
  */
-Int16 aic3204_tone_headphone( )
+Int16 aic3204_loop_linein_flanger( )
 {
-    Int16 sec, msec, sample;
-
-     /* Pre-generated sine wave data, 16-bit signed samples */
-    Int16 sinetable[48] = {
-        0x0000, 0x10b4, 0x2120, 0x30fb, 0x3fff, 0x4dea, 0x5a81, 0x658b,
-        0x6ed8, 0x763f, 0x7ba1, 0x7ee5, 0x7ffd, 0x7ee5, 0x7ba1, 0x76ef,
-        0x6ed8, 0x658b, 0x5a81, 0x4dea, 0x3fff, 0x30fb, 0x2120, 0x10b4,
-        0x0000, 0xef4c, 0xdee0, 0xcf06, 0xc002, 0xb216, 0xa57f, 0x9a75,
-        0x9128, 0x89c1, 0x845f, 0x811b, 0x8002, 0x811b, 0x845f, 0x89c1,
-        0x9128, 0x9a76, 0xa57f, 0xb216, 0xc002, 0xcf06, 0xdee0, 0xef4c
-    };    
+   Int16 sinetable[48] = {
+        24, 27, 30, 33, 36, 39, 41, 43,
+        45, 46, 47, 48, 48, 48, 47, 46,
+        45, 43, 41, 39, 36, 33, 30, 27,
+        24, 21, 18, 15, 12, 9, 7, 5,
+        3, 2, 1, 0, 0, 0, 1, 2,
+        3, 5, 7, 9, 12, 15, 18, 21
+    };
+    
+    Int16 sample, inputL, inputR, outputL, outputR, delayedL, delayedR;
+    Int16 bufferL[BUFFER_SIZE] = {0};
+    Int16 bufferR[BUFFER_SIZE] = {0};
+    Int32 bufferIndex = 0;
+    Int32 sineIndex = 0;
+    Int16 delaySamples;
+    float gain = 0.4;
+  
     /* ---------------------------------------------------------------- *
      *  Configure AIC3204                                               *
      * ---------------------------------------------------------------- */
@@ -104,7 +126,7 @@ Int16 aic3204_tone_headphone( )
     AIC3204_rset( 0x10, 0x00 );// Unmute HPL , 0dB gain
     AIC3204_rset( 0x11, 0x00 );// Unmute HPR , 0dB gain
     AIC3204_rset( 0, 0 );      // Select page 0
-    EZDSP5502_waitusec( 100 ); // wait
+    EZDSP5502_waitusec( 1000000 ); // wait
         
     /* ADC ROUTING and Power Up */
     AIC3204_rset( 0, 1 );      // Select page 1
@@ -124,21 +146,45 @@ Int16 aic3204_tone_headphone( )
     /* Initialize McBSP */
     EZDSP5502_MCBSP_init( );
     
-    /* Play Tone for 5 seconds */
-    for ( sec = 0 ; sec < 5 ; sec++ )
-    {
-        for ( msec = 0 ; msec < 1000 ; msec++ )
-        {
-            for ( sample = 0 ; sample < 48 ; sample++ )
-            {
-                EZDSP5502_MCBSP_write( sinetable[sample]);      // TX left channel first (FS Low)
-                EZDSP5502_MCBSP_write( sinetable[sample]);      // TX right channel next (FS High)
-            }
+    
+    inputL = 0;
+    inputR = 0;
+    sineIndex = 0;
+
+    while (1) {
+        if (sineIndex >= 48)
+            sineIndex = 0;
+        EZDSP5502_MCBSP_read(&inputL); // Read right channel
+        delaySamples = sinetable[sineIndex] * (DELAY + WIDTH) * 2;
+        if (delaySamples > bufferIndex) {
+            delayedL = bufferL[bufferIndex - delaySamples + BUFFER_SIZE] * MIX;
+        } else {
+            delayedL = bufferL[bufferIndex - delaySamples] * MIX;
+        }
+        outputL = inputL * 0.6 + delayedL * gain;
+        EZDSP5502_MCBSP_write(outputL); // Send to left channel (FS Low)
+        bufferL[bufferIndex] = outputL;
+
+        EZDSP5502_MCBSP_read(&inputR); // Read left channel
+        if (delaySamples > bufferIndex) {
+            delayedR = bufferR[bufferIndex - delaySamples + BUFFER_SIZE] * MIX;
+        } else {
+            delayedR = bufferR[bufferIndex - delaySamples] * MIX;
+        }
+        outputR = inputR * 0.6 + delayedR * gain;
+        EZDSP5502_MCBSP_write(outputR); // Send to right channel (FS High)
+        bufferR[bufferIndex] = outputR;
+
+        if (++sineIndex >= 48) {
+            sineIndex = 0;
+        }
+        if (++bufferIndex >= BUFFER_SIZE) {
+            bufferIndex = 0;
         }
     }
-    
+
     EZDSP5502_MCBSP_close(); // Disable McBSP
-    AIC3204_rset( 1, 1 );    // Reset codec
+    AIC3204_rset(1, 1); // Reset codec
     
     return 0;
 }

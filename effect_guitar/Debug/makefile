@@ -11,6 +11,7 @@ CG_TOOL_ROOT := C:/Program Files (x86)/Texas Instruments/ccsv4/tools/compiler/c5
 ORDERED_OBJS += \
 $(GEN_CMDS_QUOTED) \
 "./main.obj" \
+"./aic3204_tone_headphone_flanger.obj" \
 "./aic3204_tone_headphone.obj" \
 "./aic3204_test.obj" \
 "./aic3204_loop_linein.obj" \
@@ -127,8 +128,8 @@ aic3204.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(C5500_EXECUTABLE_OUTPUTS__QTD) "aic3204.out"
-	-$(RM) ".\aic3204_loop_linein.obj" ".\aic3204_test.obj" ".\aic3204_tone_headphone.obj" ".\main.obj" 
-	-$(RM) ".\aic3204_loop_linein.pp" ".\aic3204_test.pp" ".\aic3204_tone_headphone.pp" ".\main.pp" 
+	-$(RM) ".\aic3204_loop_linein.obj" ".\aic3204_test.obj" ".\aic3204_tone_headphone.obj" ".\aic3204_tone_headphone_flanger.obj" ".\main.obj" 
+	-$(RM) ".\aic3204_loop_linein.pp" ".\aic3204_test.pp" ".\aic3204_tone_headphone.pp" ".\aic3204_tone_headphone_flanger.pp" ".\main.pp" 
 	-@echo ' '
 
 .PHONY: all clean dependents

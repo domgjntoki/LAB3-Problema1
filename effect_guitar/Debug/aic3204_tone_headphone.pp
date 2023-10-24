@@ -4,8 +4,6 @@ aic3204_tone_headphone.obj: ../aic3204_tone_headphone.c
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdio.h
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/linkage.h
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdarg.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdint.h
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../include/ezdsp5502.h
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/csl.h
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/_csl.h
@@ -46,19 +44,11 @@ aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/em
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../include/ezdsp5502_mcbsp.h
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/csl_mcbsp.h
 aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/csl_mcbsphal.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/math.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/float.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/access.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/mathf.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/mathl.h
-aic3204_tone_headphone.obj: C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/unaccess.h
 
 ../aic3204_tone_headphone.c: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdio.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/linkage.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdarg.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdlib.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/stdint.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../include/ezdsp5502.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/csl.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/_csl.h: 
@@ -99,9 +89,3 @@ C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../include/ezdsp5502_mcbsp.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/csl_mcbsp.h: 
 C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/emulation/boards/ezdsp5502_v1/tests/aic3204/../../C55xxCSL/include/csl_mcbsphal.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/math.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/float.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/access.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/mathf.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/mathl.h: 
-C:/Program\ Files\ (x86)/Texas\ Instruments/ccsv4/tools/compiler/c5500/include/unaccess.h: 
